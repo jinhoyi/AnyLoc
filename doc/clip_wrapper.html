@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module clip_wrapper</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>clip_wrapper</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/gsyi/project/salient_detection/AnyLoc/clip_wrapper.py">/mnt/gsyi/project/salient_detection/AnyLoc/clip_wrapper.py</a></font></td></tr></table>
+    <p><tt>Currently&nbsp;the&nbsp;following&nbsp;backends&nbsp;are&nbsp;supported&nbsp;(and&nbsp;tested)<br>
+1.&nbsp;Official&nbsp;OpenAI&nbsp;CLIP&nbsp;[1]:&nbsp;"openai":&nbsp;IMPL_OPENAI<br>
+2.&nbsp;Open&nbsp;Source&nbsp;CLIP&nbsp;[2]:&nbsp;"open_clip":&nbsp;IMPL_OPEN_CLIP<br>
+&nbsp;<br>
+&nbsp;<br>
+[1]:&nbsp;https://github.com/openai/CLIP<br>
+[2]:&nbsp;https://github.com/mlfoundations/open_clip</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="torch.nn.functional.html">torch.nn.functional</a><br>
+<a href="PIL.Image.html">PIL.Image</a><br>
+<a href="clip.html">clip</a><br>
+</td><td width="25%" valign=top><a href="torch.nn.html">torch.nn</a><br>
+<a href="open_clip.html">open_clip</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+<a href="torch.html">torch</a><br>
+<a href="torchvision.transforms.html">torchvision.transforms</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="clip_wrapper.html#ClipWrapper">ClipWrapper</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ClipWrapper">class <strong>ClipWrapper</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#ClipWrapper">ClipWrapper</a>(impl,&nbsp;name,&nbsp;pretrained=None,&nbsp;prep_apply=True,&nbsp;use_caching:&nbsp;Union[str,&nbsp;int,&nbsp;bool]&nbsp;=&nbsp;True,&nbsp;base_cache_dir:&nbsp;Union[pathlib.Path,&nbsp;NoneType]&nbsp;=&nbsp;'/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache',&nbsp;save_norm_descs=True,&nbsp;**clip_kwargs)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+A&nbsp;wrapper&nbsp;around&nbsp;the&nbsp;following&nbsp;CLIP&nbsp;implementations<br>
+-&nbsp;IMPL_OPENAI:&nbsp;Official&nbsp;OpenAI&nbsp;implementation&nbsp;[1]<br>
+-&nbsp;IMPL_OPEN_CLIP:&nbsp;Open-source&nbsp;implementation&nbsp;[2]<br>
+&nbsp;<br>
+[1]:&nbsp;https://github.com/openai/CLIP<br>
+[2]:&nbsp;https://github.com/mlfoundations/open_clip<br>
+&nbsp;<br>
+Usage:<br>
+```py<br>
+#&nbsp;-----------------&nbsp;Testing&nbsp;OpenAI&nbsp;CLIP&nbsp;-----------------<br>
+model&nbsp;=&nbsp;<a href="#ClipWrapper">ClipWrapper</a>(<a href="#ClipWrapper">ClipWrapper</a>.IMPL_OPENAI,&nbsp;"ViT-B/32",&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device="cuda")<br>
+img&nbsp;=&nbsp;Image.open("./dir-ignore/CLIP.png")<br>
+text&nbsp;=&nbsp;["a&nbsp;diagram",&nbsp;"a&nbsp;dog",&nbsp;"a&nbsp;cat"]<br>
+with&nbsp;torch.no_grad():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;img_features&nbsp;=&nbsp;model.<a href="#ClipWrapper-encode_image">encode_image</a>(img)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;text_features&nbsp;=&nbsp;model.<a href="#ClipWrapper-encode_text">encode_text</a>(text)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;probs,&nbsp;img_f,&nbsp;txt_f&nbsp;=&nbsp;model(img,&nbsp;text)<br>
+#&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;modify&nbsp;other&nbsp;things<br>
+tokenizer&nbsp;=&nbsp;model.<a href="#ClipWrapper-get_tokenizer">get_tokenizer</a>(False)<br>
+preprocessing&nbsp;=&nbsp;model.<a href="#ClipWrapper-get_preprocessing">get_preprocessing</a>(False)<br>
+#&nbsp;-----------------&nbsp;Testing&nbsp;Open&nbsp;CLIP&nbsp;-----------------<br>
+model&nbsp;=&nbsp;<a href="#ClipWrapper">ClipWrapper</a>(<a href="#ClipWrapper">ClipWrapper</a>.IMPL_OPEN_CLIP,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"ViT-B-32-quickgelu",&nbsp;pretrained='laion400m_e32',&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;device="cuda")<br>
+#&nbsp;-----&nbsp;List&nbsp;all&nbsp;model&nbsp;backbones&nbsp;and&nbsp;pretrained&nbsp;datasets&nbsp;-----<br>
+model.<a href="#ClipWrapper-list_models">list_models</a>()<br>
+```<br>
+&nbsp;<br>
+Caching&nbsp;policy:&nbsp;`use_caching&nbsp;!=&nbsp;False`&nbsp;(True&nbsp;or&nbsp;`exp_id`)<br>
+-&nbsp;`.models/clip`:&nbsp;For&nbsp;storing&nbsp;checkpoints&nbsp;of&nbsp;CLIP&nbsp;models<br>
+-&nbsp;`experiments/exp_id`:&nbsp;For&nbsp;specific&nbsp;experiment&nbsp;ID<br>
+-&nbsp;`images`&nbsp;for&nbsp;images&nbsp;and&nbsp;`text`&nbsp;for&nbsp;text.&nbsp;Stored&nbsp;globally&nbsp;if<br>
+&nbsp;&nbsp;&nbsp;&nbsp;`exp_id`&nbsp;is&nbsp;None&nbsp;(when&nbsp;`use_caching&nbsp;=&nbsp;True`).&nbsp;All&nbsp;cached<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Tensors&nbsp;have&nbsp;`requires_grad=False`.<br>
+-&nbsp;If&nbsp;`base_cache_dir`&nbsp;is&nbsp;None&nbsp;then&nbsp;models&nbsp;are&nbsp;stored&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;`~/.cache/clip`&nbsp;(no&nbsp;images&nbsp;or&nbsp;text).&nbsp;Otherwise,&nbsp;all&nbsp;cache<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;stored&nbsp;in&nbsp;the&nbsp;base&nbsp;cache&nbsp;directory.<br>
+&nbsp;<br>
+Constructor&nbsp;parameters:<br>
+-&nbsp;impl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implementation&nbsp;(in&nbsp;the&nbsp;implementations&nbsp;list&nbsp;above)<br>
+-&nbsp;name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model&nbsp;name,&nbsp;must&nbsp;be&nbsp;in&nbsp;`list_models`<br>
+-&nbsp;pretrained:&nbsp;&nbsp;&nbsp;Pretraining&nbsp;dataset&nbsp;(only&nbsp;for&nbsp;IMPL_OPEN_CLIP).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In&nbsp;that&nbsp;implementation,&nbsp;None&nbsp;means&nbsp;default.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not&nbsp;used&nbsp;for&nbsp;IMPL_OPENAI<br>
+-&nbsp;prep_apply:&nbsp;&nbsp;&nbsp;Apply&nbsp;preprocessing&nbsp;pipeline&nbsp;to&nbsp;input&nbsp;images&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;text.&nbsp;Setting&nbsp;this&nbsp;to&nbsp;False&nbsp;means&nbsp;that&nbsp;you&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;have&nbsp;to&nbsp;explicitly&nbsp;call&nbsp;the&nbsp;'preprocessing'&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;'tokenizing'&nbsp;pipelines&nbsp;before&nbsp;calling&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encoding&nbsp;functions.<br>
+-&nbsp;use_caching:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;cache&nbsp;directory&nbsp;in&nbsp;config&nbsp;is&nbsp;used<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;store&nbsp;the&nbsp;models&nbsp;and&nbsp;the&nbsp;result&nbsp;cache.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;pass&nbsp;a&nbsp;string&nbsp;(or&nbsp;equivalent),&nbsp;it&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;treats&nbsp;this&nbsp;as&nbsp;a&nbsp;parent&nbsp;directory&nbsp;for&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;results&nbsp;cache&nbsp;(not&nbsp;model),&nbsp;treat&nbsp;this&nbsp;as&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;`experiment&nbsp;identifier`&nbsp;(it&nbsp;can&nbsp;contain<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'/').&nbsp;This&nbsp;turns&nbsp;ON&nbsp;caching.<br>
+-&nbsp;base_cache_dir:&nbsp;&nbsp;&nbsp;Folder&nbsp;for&nbsp;default&nbsp;cache&nbsp;(for&nbsp;model).&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;caching&nbsp;is&nbsp;ON,&nbsp;this&nbsp;is&nbsp;also&nbsp;the&nbsp;base&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directory&nbsp;for&nbsp;the&nbsp;images&nbsp;and&nbsp;text&nbsp;cache.<br>
+-&nbsp;save_norm_descs:&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;cached&nbsp;descriptors&nbsp;are&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normalized&nbsp;before&nbsp;writing&nbsp;to&nbsp;cache.&nbsp;This<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;also&nbsp;means&nbsp;that&nbsp;normalized&nbsp;descriptors&nbsp;are<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;(from&nbsp;the&nbsp;same&nbsp;cache).&nbsp;Only&nbsp;if&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parameter&nbsp;&nbsp;`use_caching`&nbsp;is&nbsp;configured&nbsp;for&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;saving&nbsp;cache.<br>
+-&nbsp;**clip_kwargs:&nbsp;&nbsp;&nbsp;&nbsp;Keyword&nbsp;arguments&nbsp;for&nbsp;the&nbsp;CLIP&nbsp;constructor<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;in&nbsp;the&nbsp;backend.&nbsp;The&nbsp;class&nbsp;'device'&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;here.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;cache_dir:&nbsp;It&nbsp;is&nbsp;set&nbsp;appropriately<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ClipWrapper-__call__"><strong>__call__</strong></a>(self, img, text, normalize=False, context_length=77, ci=None, detach=True)</dt><dd><tt>Calls&nbsp;the&nbsp;implementation&nbsp;model&nbsp;to&nbsp;return&nbsp;the&nbsp;class&nbsp;scores<br>
+(probability&nbsp;that&nbsp;`img`&nbsp;belongs&nbsp;to&nbsp;an&nbsp;item&nbsp;in&nbsp;`text`)&nbsp;<br>
+along&nbsp;with&nbsp;the&nbsp;descriptors&nbsp;for&nbsp;image&nbsp;and&nbsp;text.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;img:&nbsp;&nbsp;The&nbsp;image&nbsp;input&nbsp;for&nbsp;the&nbsp;`encode_image`&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;the&nbsp;`prep_img`&nbsp;setting.<br>
+-&nbsp;text:&nbsp;The&nbsp;text&nbsp;input&nbsp;for&nbsp;the&nbsp;`encode_text`&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;the&nbsp;`prep_text`&nbsp;setting.<br>
+-&nbsp;normalize:&nbsp;&nbsp;&nbsp;&nbsp;Normalize&nbsp;the&nbsp;CLIP&nbsp;encodings&nbsp;(image&nbsp;and&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text&nbsp;both)<br>
+-&nbsp;context_length:&nbsp;&nbsp;&nbsp;Context&nbsp;length&nbsp;for&nbsp;token&nbsp;dimensions<br>
+-&nbsp;ci:&nbsp;&nbsp;&nbsp;Cache&nbsp;identifier&nbsp;(should&nbsp;be&nbsp;unique&nbsp;per&nbsp;query).&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None,&nbsp;then&nbsp;caching&nbsp;is&nbsp;not&nbsp;used.<br>
+-&nbsp;detach:&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;then&nbsp;returned&nbsp;variables&nbsp;are&nbsp;detached.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;probs:&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;[N_img,&nbsp;N_text]&nbsp;probability&nbsp;distribution<br>
+-&nbsp;img_features:&nbsp;Image&nbsp;CLIP&nbsp;features<br>
+-&nbsp;text_features:&nbsp;&nbsp;&nbsp;&nbsp;CLIP&nbsp;embeddings&nbsp;for&nbsp;text</tt></dd></dl>
+
+<dl><dt><a name="ClipWrapper-__init__"><strong>__init__</strong></a>(self, impl, name, pretrained=None, prep_apply=True, use_caching: Union[str, int, bool] = True, base_cache_dir: Union[pathlib.Path, NoneType] = '/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache', save_norm_descs=True, **clip_kwargs) -&gt; None</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="ClipWrapper-encode_image"><strong>encode_image</strong></a>(self, image, normalize=False, ci=None)</dt><dd><tt>Calls&nbsp;`encode_image`&nbsp;of&nbsp;the&nbsp;CLIP&nbsp;implementation.&nbsp;<br>
+-&nbsp;If&nbsp;`load`&nbsp;was&nbsp;used&nbsp;(that&nbsp;is,&nbsp;`prep_img&nbsp;=&nbsp;False`),&nbsp;then&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;preprocessing&nbsp;has&nbsp;to&nbsp;be&nbsp;applied&nbsp;before&nbsp;using&nbsp;this.<br>
+-&nbsp;If&nbsp;`prep_img&nbsp;=&nbsp;True`,&nbsp;it&nbsp;is&nbsp;moved&nbsp;to&nbsp;the&nbsp;appropriate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;device&nbsp;before&nbsp;passing&nbsp;it&nbsp;to&nbsp;the&nbsp;implementation.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;image:&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;image&nbsp;(after&nbsp;preprocessing&nbsp;if&nbsp;the&nbsp;setting&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`prep_img=False`).&nbsp;Preprocessing&nbsp;is&nbsp;applied<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only&nbsp;if&nbsp;`prep_img=True`.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;If&nbsp;type&nbsp;`PIL.Image.Image`&nbsp;then&nbsp;default&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preprocessing&nbsp;is&nbsp;applied.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;For&nbsp;any&nbsp;other&nbsp;type,&nbsp;a&nbsp;list&nbsp;of&nbsp;PIL.Image&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;objects&nbsp;is&nbsp;constructed&nbsp;and&nbsp;preprocessing&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;applied.<br>
+-&nbsp;normalize:&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;normalize&nbsp;the&nbsp;image&nbsp;features<br>
+-&nbsp;ci:&nbsp;&nbsp;&nbsp;A&nbsp;str-like&nbsp;identifier&nbsp;for&nbsp;caching.&nbsp;If&nbsp;None,&nbsp;no<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;caching&nbsp;is&nbsp;used&nbsp;(should&nbsp;be&nbsp;unique&nbsp;for&nbsp;each&nbsp;image).<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;img_features:&nbsp;Image&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[N=1,&nbsp;D=512]<br>
+&nbsp;<br>
+Note:<br>
+-&nbsp;If&nbsp;`ci`&nbsp;is&nbsp;found,&nbsp;the&nbsp;forward&nbsp;pass&nbsp;is&nbsp;not&nbsp;used&nbsp;since&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cache&nbsp;is&nbsp;directly&nbsp;returned.&nbsp;`image`&nbsp;can&nbsp;be&nbsp;None&nbsp;if&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;you're&nbsp;_sure_&nbsp;the&nbsp;cache&nbsp;exists.<br>
+-&nbsp;When&nbsp;writing&nbsp;to&nbsp;cache,&nbsp;`normalize`&nbsp;plays&nbsp;a&nbsp;role.</tt></dd></dl>
+
+<dl><dt><a name="ClipWrapper-encode_text"><strong>encode_text</strong></a>(self, text, context_length=77, normalize=False, ci=None)</dt><dd><tt>Calls&nbsp;`encode_text`&nbsp;of&nbsp;the&nbsp;CLIP&nbsp;implementation.<br>
+-&nbsp;If&nbsp;`load`&nbsp;was&nbsp;used&nbsp;(that&nbsp;is,&nbsp;`prep_text&nbsp;=&nbsp;False`),&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tokenization&nbsp;has&nbsp;to&nbsp;be&nbsp;applied&nbsp;before&nbsp;using&nbsp;this.<br>
+-&nbsp;If&nbsp;`prep_text&nbsp;=&nbsp;True`,&nbsp;then&nbsp;tokenization&nbsp;is&nbsp;applied&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;passed&nbsp;text&nbsp;(which&nbsp;is&nbsp;assumed&nbsp;as&nbsp;list&nbsp;of&nbsp;labels),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;the&nbsp;tensor&nbsp;is&nbsp;model&nbsp;to&nbsp;the&nbsp;appropriate&nbsp;device&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;before&nbsp;passing&nbsp;it&nbsp;to&nbsp;the&nbsp;implementation.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;text:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;`prep_text&nbsp;=&nbsp;False`&nbsp;then&nbsp;should&nbsp;be&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenized&nbsp;text&nbsp;tokens&nbsp;(tensor),&nbsp;else&nbsp;if&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`prep_text&nbsp;=&nbsp;True`,&nbsp;then&nbsp;should&nbsp;be&nbsp;a&nbsp;list&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str&nbsp;(containing&nbsp;"text&nbsp;phrases")<br>
+-&nbsp;context_length:&nbsp;&nbsp;&nbsp;Context&nbsp;length&nbsp;for&nbsp;token&nbsp;dimensions<br>
+-&nbsp;normalize:&nbsp;&nbsp;&nbsp;&nbsp;Normalize&nbsp;the&nbsp;CLIP&nbsp;encodings<br>
+-&nbsp;ci:&nbsp;&nbsp;&nbsp;A&nbsp;str-like&nbsp;identifier&nbsp;for&nbsp;caching.&nbsp;If&nbsp;None,&nbsp;no<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;caching&nbsp;is&nbsp;used&nbsp;(should&nbsp;be&nbsp;unique&nbsp;for&nbsp;each&nbsp;text).<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;text_features:&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;embeddings&nbsp;of&nbsp;shape&nbsp;[N,&nbsp;D=512]<br>
+&nbsp;<br>
+Note:<br>
+-&nbsp;If&nbsp;`ci`&nbsp;is&nbsp;found,&nbsp;no&nbsp;`context_length`&nbsp;and&nbsp;forward&nbsp;pass&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;used&nbsp;since&nbsp;the&nbsp;cache&nbsp;is&nbsp;directly&nbsp;returned.&nbsp;`text`&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;can&nbsp;be&nbsp;None&nbsp;if&nbsp;you're&nbsp;_sure_&nbsp;the&nbsp;cache&nbsp;exists.<br>
+-&nbsp;When&nbsp;writing&nbsp;to&nbsp;cache,&nbsp;`normalize`&nbsp;plays&nbsp;a&nbsp;role.<br>
+-&nbsp;`context_length`&nbsp;is&nbsp;used&nbsp;only&nbsp;if&nbsp;`self.<strong>prep_text</strong>=True`</tt></dd></dl>
+
+<dl><dt><a name="ClipWrapper-get_preprocessing"><strong>get_preprocessing</strong></a>(self, disable_prep=True)</dt><dd><tt>Returns&nbsp;the&nbsp;image&nbsp;preprocessing&nbsp;(torchvision&nbsp;Compose)<br>
+pipeline.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;disable_prep:&nbsp;If&nbsp;True,&nbsp;the&nbsp;preprocessing&nbsp;for&nbsp;image&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disabled&nbsp;(hereon)&nbsp;by&nbsp;setting&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`prep_img=False`.&nbsp;If&nbsp;False,&nbsp;the&nbsp;setting<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;not&nbsp;changed.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;preprocessing:&nbsp;&nbsp;&nbsp;&nbsp;Preprocessing&nbsp;function&nbsp;for&nbsp;images</tt></dd></dl>
+
+<dl><dt><a name="ClipWrapper-get_tokenizer"><strong>get_tokenizer</strong></a>(self, disable_prep=True)</dt><dd><tt>Returns&nbsp;the&nbsp;tokenizer&nbsp;<a href="builtins.html#object">object</a>&nbsp;for&nbsp;the&nbsp;text&nbsp;tokenization.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;disable_prep:&nbsp;If&nbsp;True,&nbsp;the&nbsp;preprocessing&nbsp;for&nbsp;text&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disabled&nbsp;(hereon)&nbsp;by&nbsp;setting&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`prep_text=False`.&nbsp;If&nbsp;False,&nbsp;the&nbsp;setting<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;not&nbsp;changed.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;tokenizer:&nbsp;&nbsp;&nbsp;&nbsp;Default&nbsp;tokenizer&nbsp;that's&nbsp;used&nbsp;to&nbsp;tokenize<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;strings.</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="ClipWrapper-list_models"><strong>list_models</strong></a>(ret_vals=False)</dt><dd><tt>Lists&nbsp;all&nbsp;model&nbsp;names&nbsp;for&nbsp;the&nbsp;implementations<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;ret_vals:&nbsp;If&nbsp;True,&nbsp;return&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;models<br>
+&nbsp;<br>
+Returns&nbsp;(if&nbsp;`ret_vals`):<br>
+-&nbsp;models_dict:&nbsp;&nbsp;Keys&nbsp;are&nbsp;IMPL_*,&nbsp;values&nbsp;are&nbsp;list</tt></dd></dl>
+
+<dl><dt><a name="ClipWrapper-load"><strong>load</strong></a>(impl, name, pretrained=None, **kwargs)</dt><dd><tt>Loads&nbsp;a&nbsp;CLIP&nbsp;method&nbsp;using&nbsp;the&nbsp;available&nbsp;implementations<br>
+-&nbsp;<a href="#ClipWrapper">ClipWrapper</a>.IMPL_OPENAI<br>
+-&nbsp;<a href="#ClipWrapper">ClipWrapper</a>.IMPL_OPEN_CLIP<br>
+See&nbsp;the&nbsp;class&nbsp;doc&nbsp;for&nbsp;more.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;impl:&nbsp;Implementation&nbsp;(in&nbsp;the&nbsp;list&nbsp;above)<br>
+-&nbsp;name:&nbsp;Model&nbsp;name,&nbsp;must&nbsp;be&nbsp;in&nbsp;`list_models`<br>
+-&nbsp;pretrained:&nbsp;&nbsp;&nbsp;Dataset&nbsp;(for&nbsp;IMPL_OPEN_CLIP)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None&nbsp;(ignored)&nbsp;for&nbsp;IMPL_OPENAI<br>
+-&nbsp;**kwargs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keyword&nbsp;arguments&nbsp;for&nbsp;constructor<br>
+&nbsp;<br>
+Returns&nbsp;Tuple:<br>
+-&nbsp;wrapper:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;CLIP&nbsp;wrapper&nbsp;with&nbsp;prep_apply=False<br>
+-&nbsp;preprocessing:&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;image&nbsp;pre-processing&nbsp;function<br>
+&nbsp;<br>
+See&nbsp;class&nbsp;constructor&nbsp;for&nbsp;more&nbsp;information</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>IMPL_OPENAI</strong> = 'openai'</dl>
+
+<dl><dt><strong>IMPL_OPEN_CLIP</strong> = 'open_clip'</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Union</strong> = typing.Union<br>
+<strong>caching_directory</strong> = '/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache'<br>
+<strong>dir_name</strong> = '/mnt/gsyi/project/salient_detection/AnyLoc'<br>
+<strong>lib_path</strong> = '/mnt/gsyi/project/salient_detection/AnyLoc'</td></tr></table>
+</body></html>

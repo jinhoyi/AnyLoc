@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module dino_extractor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>dino_extractor</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/gsyi/project/salient_detection/AnyLoc/dino_extractor.py">/mnt/gsyi/project/salient_detection/AnyLoc/dino_extractor.py</a></font></td></tr></table>
+    <p><tt>Code&nbsp;directly&nbsp;from:&nbsp;https://github.com/ShirAmir/dino-vit-features/blob/main/extractor.py<br>
+&nbsp;<br>
+Modifications:<br>
+-&nbsp;`preprocess`&nbsp;function&nbsp;takes&nbsp;numpy&nbsp;or&nbsp;torch&nbsp;images&nbsp;as&nbsp;well&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;implicitly&nbsp;converts&nbsp;to&nbsp;PIL&nbsp;(instead&nbsp;of&nbsp;just&nbsp;path).</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="PIL.Image.html">PIL.Image</a><br>
+<a href="argparse.html">argparse</a><br>
+<a href="math.html">math</a><br>
+<a href="torch.nn.html">torch.nn</a><br>
+</td><td width="25%" valign=top><a href="torch.nn.modules.utils.html">torch.nn.modules.utils</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="pathlib.html">pathlib</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="timm.html">timm</a><br>
+<a href="torch.html">torch</a><br>
+<a href="torchvision.html">torchvision</a><br>
+<a href="torchvision.transforms.html">torchvision.transforms</a><br>
+</td><td width="25%" valign=top><a href="types.html">types</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="dino_extractor.html#ViTExtractor">ViTExtractor</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ViTExtractor">class <strong>ViTExtractor</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#ViTExtractor">ViTExtractor</a>(model_type:&nbsp;str&nbsp;=&nbsp;'dino_vits8',&nbsp;stride:&nbsp;int&nbsp;=&nbsp;4,&nbsp;model:&nbsp;torch.nn.modules.module.Module&nbsp;=&nbsp;None,&nbsp;device:&nbsp;str&nbsp;=&nbsp;'cuda')<br>
+&nbsp;<br>
+This&nbsp;class&nbsp;facilitates&nbsp;extraction&nbsp;of&nbsp;features,&nbsp;descriptors,&nbsp;and&nbsp;saliency&nbsp;maps&nbsp;from&nbsp;a&nbsp;ViT.<br>
+&nbsp;<br>
+We&nbsp;use&nbsp;the&nbsp;following&nbsp;notation&nbsp;in&nbsp;the&nbsp;documentation&nbsp;of&nbsp;the&nbsp;module's&nbsp;methods:<br>
+B&nbsp;-&nbsp;batch&nbsp;size<br>
+h&nbsp;-&nbsp;number&nbsp;of&nbsp;heads.&nbsp;usually&nbsp;takes&nbsp;place&nbsp;of&nbsp;the&nbsp;channel&nbsp;dimension&nbsp;in&nbsp;pytorch's&nbsp;convention&nbsp;BxCxHxW<br>
+p&nbsp;-&nbsp;patch&nbsp;size&nbsp;of&nbsp;the&nbsp;ViT.&nbsp;either&nbsp;8&nbsp;or&nbsp;16.<br>
+t&nbsp;-&nbsp;number&nbsp;of&nbsp;tokens.&nbsp;equals&nbsp;the&nbsp;number&nbsp;of&nbsp;patches&nbsp;+&nbsp;1,&nbsp;e.g.&nbsp;HW&nbsp;/&nbsp;p**2&nbsp;+&nbsp;1.&nbsp;Where&nbsp;H&nbsp;and&nbsp;W&nbsp;are&nbsp;the&nbsp;height&nbsp;and&nbsp;width<br>
+of&nbsp;the&nbsp;input&nbsp;image.<br>
+d&nbsp;-&nbsp;the&nbsp;embedding&nbsp;dimension&nbsp;in&nbsp;the&nbsp;ViT.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ViTExtractor-__init__"><strong>__init__</strong></a>(self, model_type: str = 'dino_vits8', stride: int = 4, model: torch.nn.modules.module.Module = None, device: str = 'cuda')</dt><dd><tt>:param&nbsp;model_type:&nbsp;A&nbsp;string&nbsp;specifying&nbsp;the&nbsp;type&nbsp;of&nbsp;model&nbsp;to&nbsp;extract&nbsp;from.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[dino_vits8&nbsp;|&nbsp;dino_vits16&nbsp;|&nbsp;dino_vitb8&nbsp;|&nbsp;dino_vitb16&nbsp;|&nbsp;vit_small_patch8_224&nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vit_small_patch16_224&nbsp;|&nbsp;vit_base_patch8_224&nbsp;|&nbsp;vit_base_patch16_224]<br>
+:param&nbsp;stride:&nbsp;stride&nbsp;of&nbsp;first&nbsp;convolution&nbsp;layer.&nbsp;small&nbsp;stride&nbsp;-&gt;&nbsp;higher&nbsp;resolution.<br>
+:param&nbsp;model:&nbsp;Optional&nbsp;parameter.&nbsp;The&nbsp;nn.Module&nbsp;to&nbsp;extract&nbsp;from&nbsp;instead&nbsp;of&nbsp;creating&nbsp;a&nbsp;new&nbsp;one&nbsp;in&nbsp;<a href="#ViTExtractor">ViTExtractor</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should&nbsp;be&nbsp;compatible&nbsp;with&nbsp;model_type.</tt></dd></dl>
+
+<dl><dt><a name="ViTExtractor-extract_descriptors"><strong>extract_descriptors</strong></a>(self, batch: torch.Tensor, layer: int = 11, facet: str = 'key', bin: bool = False, include_cls: bool = False) -&gt; torch.Tensor</dt><dd><tt>extract&nbsp;descriptors&nbsp;from&nbsp;the&nbsp;model<br>
+:param&nbsp;batch:&nbsp;batch&nbsp;to&nbsp;extract&nbsp;descriptors&nbsp;for.&nbsp;Has&nbsp;shape&nbsp;BxCxHxW.<br>
+:param&nbsp;layers:&nbsp;layer&nbsp;to&nbsp;extract.&nbsp;A&nbsp;number&nbsp;between&nbsp;0&nbsp;to&nbsp;11.<br>
+:param&nbsp;facet:&nbsp;facet&nbsp;to&nbsp;extract.&nbsp;One&nbsp;of&nbsp;the&nbsp;following&nbsp;options:&nbsp;['key'&nbsp;|&nbsp;'query'&nbsp;|&nbsp;'value'&nbsp;|&nbsp;'token']<br>
+:param&nbsp;bin:&nbsp;apply&nbsp;log&nbsp;binning&nbsp;to&nbsp;the&nbsp;descriptor.&nbsp;default&nbsp;is&nbsp;False.<br>
+:return:&nbsp;tensor&nbsp;of&nbsp;descriptors.&nbsp;Bx1xtxd'&nbsp;where&nbsp;d'&nbsp;is&nbsp;the&nbsp;dimension&nbsp;of&nbsp;the&nbsp;descriptors.</tt></dd></dl>
+
+<dl><dt><a name="ViTExtractor-extract_saliency_maps"><strong>extract_saliency_maps</strong></a>(self, batch: torch.Tensor) -&gt; torch.Tensor</dt><dd><tt>extract&nbsp;saliency&nbsp;maps.&nbsp;The&nbsp;saliency&nbsp;maps&nbsp;are&nbsp;extracted&nbsp;by&nbsp;averaging&nbsp;several&nbsp;attention&nbsp;heads&nbsp;from&nbsp;the&nbsp;last&nbsp;layer<br>
+in&nbsp;of&nbsp;the&nbsp;CLS&nbsp;token.&nbsp;All&nbsp;values&nbsp;are&nbsp;then&nbsp;normalized&nbsp;to&nbsp;range&nbsp;between&nbsp;0&nbsp;and&nbsp;1.<br>
+:param&nbsp;batch:&nbsp;batch&nbsp;to&nbsp;extract&nbsp;saliency&nbsp;maps&nbsp;for.&nbsp;Has&nbsp;shape&nbsp;BxCxHxW.<br>
+:return:&nbsp;a&nbsp;tensor&nbsp;of&nbsp;saliency&nbsp;maps.&nbsp;has&nbsp;shape&nbsp;Bxt-1</tt></dd></dl>
+
+<dl><dt><a name="ViTExtractor-preprocess"><strong>preprocess</strong></a>(self, image: Union[str, pathlib.Path, numpy.ndarray, torch.Tensor], load_size: Union[int, Tuple[int, int]] = None) -&gt; Tuple[torch.Tensor, PIL.Image.Image]</dt><dd><tt>Preprocesses&nbsp;an&nbsp;image&nbsp;before&nbsp;extraction.<br>
+:param&nbsp;image:&nbsp;Image&nbsp;(as&nbsp;path,&nbsp;ndarray&nbsp;or&nbsp;Tensor).&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;it's&nbsp;ndarray&nbsp;or&nbsp;Tensor,&nbsp;then&nbsp;range&nbsp;(and&nbsp;type)&nbsp;should&nbsp;be&nbsp;uint8.<br>
+:param&nbsp;load_size:&nbsp;optional.&nbsp;Size&nbsp;to&nbsp;resize&nbsp;image&nbsp;before&nbsp;the&nbsp;rest&nbsp;of&nbsp;preprocessing.<br>
+:return:&nbsp;a&nbsp;tuple&nbsp;containing:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1)&nbsp;the&nbsp;preprocessed&nbsp;image&nbsp;as&nbsp;a&nbsp;tensor&nbsp;to&nbsp;insert&nbsp;the&nbsp;model&nbsp;of&nbsp;shape&nbsp;BxCxHxW.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2)&nbsp;the&nbsp;pil&nbsp;image&nbsp;in&nbsp;relevant&nbsp;dimensions</tt></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="ViTExtractor-create_model"><strong>create_model</strong></a>(model_type: str) -&gt; torch.nn.modules.module.Module</dt><dd><tt>:param&nbsp;model_type:&nbsp;a&nbsp;string&nbsp;specifying&nbsp;which&nbsp;model&nbsp;to&nbsp;load.&nbsp;[dino_vits8&nbsp;|&nbsp;dino_vits16&nbsp;|&nbsp;dino_vitb8&nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dino_vitb16&nbsp;|&nbsp;vit_small_patch8_224&nbsp;|&nbsp;vit_small_patch16_224&nbsp;|&nbsp;vit_base_patch8_224&nbsp;|<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vit_base_patch16_224]<br>
+:return:&nbsp;the&nbsp;model</tt></dd></dl>
+
+<dl><dt><a name="ViTExtractor-patch_vit_resolution"><strong>patch_vit_resolution</strong></a>(model: torch.nn.modules.module.Module, stride: int) -&gt; torch.nn.modules.module.Module</dt><dd><tt>change&nbsp;resolution&nbsp;of&nbsp;model&nbsp;output&nbsp;by&nbsp;changing&nbsp;the&nbsp;stride&nbsp;of&nbsp;the&nbsp;patch&nbsp;extraction.<br>
+:param&nbsp;model:&nbsp;the&nbsp;model&nbsp;to&nbsp;change&nbsp;resolution&nbsp;for.<br>
+:param&nbsp;stride:&nbsp;the&nbsp;new&nbsp;stride&nbsp;parameter.<br>
+:return:&nbsp;the&nbsp;adjusted&nbsp;model</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-str2bool"><strong>str2bool</strong></a>(v)</dt></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>List</strong> = typing.List<br>
+<strong>Tuple</strong> = typing.Tuple<br>
+<strong>Union</strong> = typing.Union</td></tr></table>
+</body></html>

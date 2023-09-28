@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>utilities</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/gsyi/project/salient_detection/AnyLoc/utilities.py">/mnt/gsyi/project/salient_detection/AnyLoc/utilities.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Utility&nbsp;scripts</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="torch.nn.functional.html">torch.nn.functional</a><br>
+<a href="PIL.Image.html">PIL.Image</a><br>
+<a href="einops.html">einops</a><br>
+</td><td width="25%" valign=top><a href="faiss.html">faiss</a><br>
+<a href="fast_pytorch_kmeans.html">fast_pytorch_kmeans</a><br>
+<a href="transformers.html">transformers</a><br>
+</td><td width="25%" valign=top><a href="torch.nn.html">torch.nn</a><br>
+<a href="numpy.html">numpy</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+<a href="random.html">random</a><br>
+<a href="torch.html">torch</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="utilities.html#CosPlaceViTExtractFeatures">CosPlaceViTExtractFeatures</a>
+</font></dt><dt><font face="helvetica, arial"><a href="utilities.html#CustomDataset">CustomDataset</a>
+</font></dt><dt><font face="helvetica, arial"><a href="utilities.html#DinoV2ExtractFeatures">DinoV2ExtractFeatures</a>
+</font></dt><dt><font face="helvetica, arial"><a href="utilities.html#VLAD">VLAD</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CosPlaceViTExtractFeatures">class <strong>CosPlaceViTExtractFeatures</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#CosPlaceViTExtractFeatures">CosPlaceViTExtractFeatures</a>(ckpt_path:&nbsp;str,&nbsp;layer:&nbsp;int,&nbsp;facet:&nbsp;Literal['query',&nbsp;'key',&nbsp;'value',&nbsp;'token'],&nbsp;use_cls:&nbsp;bool&nbsp;=&nbsp;False,&nbsp;norm_descs:&nbsp;bool&nbsp;=&nbsp;True,&nbsp;device='cpu')&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+Extract&nbsp;features&nbsp;from&nbsp;an&nbsp;intermediate&nbsp;layer&nbsp;in&nbsp;CosPlace.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="CosPlaceViTExtractFeatures-__call__"><strong>__call__</strong></a>(self, img: torch.Tensor) -&gt; torch.Tensor</dt><dd><tt>Parameters:<br>
+-&nbsp;img:&nbsp;torch.Tensor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Input&nbsp;image</tt></dd></dl>
+
+<dl><dt><a name="CosPlaceViTExtractFeatures-__del__"><strong>__del__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CosPlaceViTExtractFeatures-__init__"><strong>__init__</strong></a>(self, ckpt_path: str, layer: int, facet: Literal['query', 'key', 'value', 'token'], use_cls: bool = False, norm_descs: bool = True, device='cpu') -&gt; None</dt><dd><tt>Parameters:<br>
+-&nbsp;ckpt_path:&nbsp;str&nbsp;&nbsp;&nbsp;&nbsp;Checkpoint&nbsp;path<br>
+-&nbsp;layer:&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Layer&nbsp;number<br>
+-&nbsp;facet:&nbsp;str&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facet&nbsp;to&nbsp;use<br>
+-&nbsp;use_cls:&nbsp;bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;CLS&nbsp;token&nbsp;is&nbsp;retained<br>
+-&nbsp;norm_descs:&nbsp;bool&nbsp;&nbsp;If&nbsp;True,&nbsp;normalize&nbsp;patch&nbsp;descriptors<br>
+-&nbsp;device:&nbsp;Union[torch.device,&nbsp;str]</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CustomDataset">class <strong>CustomDataset</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#CustomDataset">CustomDataset</a>()&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+#&nbsp;%%&nbsp;----------------&nbsp;Dataset&nbsp;Utilities&nbsp;----------------<br>
+#&nbsp;Abstract&nbsp;class&nbsp;(parent)&nbsp;for&nbsp;all&nbsp;custom&nbsp;datasets<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="CustomDataset-__getitem__"><strong>__getitem__</strong></a>(self, index)</dt></dl>
+
+<dl><dt><a name="CustomDataset-__init__"><strong>__init__</strong></a>(self) -&gt; None</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="CustomDataset-__len__"><strong>__len__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CustomDataset-get_image_paths"><strong>get_image_paths</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CustomDataset-get_image_relpaths"><strong>get_image_relpaths</strong></a>(self, i: Union[int, List[int]]) -&gt; Union[List[str], str]</dt><dd><tt>Get&nbsp;the&nbsp;relative&nbsp;path&nbsp;of&nbsp;the&nbsp;image&nbsp;at&nbsp;index&nbsp;i&nbsp;(in&nbsp;the&nbsp;<br>
+dataset).&nbsp;Multiple&nbsp;&nbsp;indices&nbsp;can&nbsp;be&nbsp;passed&nbsp;as&nbsp;a&nbsp;list&nbsp;(or&nbsp;<br>
+int-like&nbsp;array).&nbsp;This&nbsp;could&nbsp;be&nbsp;useful&nbsp;for&nbsp;caching.<br>
+&nbsp;<br>
+&gt;&nbsp;Note:&nbsp;If&nbsp;images&nbsp;are&nbsp;at&nbsp;a&nbsp;level&nbsp;other&nbsp;than&nbsp;2,&nbsp;then&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;variable&nbsp;_imgs_level&nbsp;should&nbsp;be&nbsp;initialized</tt></dd></dl>
+
+<dl><dt><a name="CustomDataset-get_positives"><strong>get_positives</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DinoV2ExtractFeatures">class <strong>DinoV2ExtractFeatures</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#DinoV2ExtractFeatures">DinoV2ExtractFeatures</a>(dino_model:&nbsp;Literal['dinov2_vits14',&nbsp;'dinov2_vitb14',&nbsp;'dinov2_vitl14',&nbsp;'dinov2_vitg14'],&nbsp;layer:&nbsp;int,&nbsp;facet:&nbsp;Literal['query',&nbsp;'key',&nbsp;'value',&nbsp;'token']&nbsp;=&nbsp;'token',&nbsp;use_cls=False,&nbsp;norm_descs=True,&nbsp;device:&nbsp;str&nbsp;=&nbsp;'cpu')&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+Extract&nbsp;features&nbsp;from&nbsp;an&nbsp;intermediate&nbsp;layer&nbsp;in&nbsp;Dino-v2<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="DinoV2ExtractFeatures-__call__"><strong>__call__</strong></a>(self, img: torch.Tensor) -&gt; torch.Tensor</dt><dd><tt>Parameters:<br>
+-&nbsp;img:&nbsp;&nbsp;&nbsp;The&nbsp;input&nbsp;image</tt></dd></dl>
+
+<dl><dt><a name="DinoV2ExtractFeatures-__del__"><strong>__del__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="DinoV2ExtractFeatures-__init__"><strong>__init__</strong></a>(self, dino_model: Literal['dinov2_vits14', 'dinov2_vitb14', 'dinov2_vitl14', 'dinov2_vitg14'], layer: int, facet: Literal['query', 'key', 'value', 'token'] = 'token', use_cls=False, norm_descs=True, device: str = 'cpu') -&gt; None</dt><dd><tt>Parameters:<br>
+-&nbsp;dino_model:&nbsp;&nbsp;&nbsp;The&nbsp;DINO-v2&nbsp;model&nbsp;to&nbsp;use<br>
+-&nbsp;layer:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;layer&nbsp;to&nbsp;extract&nbsp;features&nbsp;from<br>
+-&nbsp;facet:&nbsp;&nbsp;&nbsp;&nbsp;"query",&nbsp;"key",&nbsp;or&nbsp;"value"&nbsp;for&nbsp;the&nbsp;attention<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;facets.&nbsp;"token"&nbsp;for&nbsp;the&nbsp;output&nbsp;of&nbsp;the&nbsp;layer.<br>
+-&nbsp;use_cls:&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;CLS&nbsp;token&nbsp;(first&nbsp;item)&nbsp;is&nbsp;also<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;included&nbsp;in&nbsp;the&nbsp;returned&nbsp;list&nbsp;of&nbsp;descriptors.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise,&nbsp;only&nbsp;patch&nbsp;descriptors&nbsp;are&nbsp;used.<br>
+-&nbsp;norm_descs:&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;descriptors&nbsp;are&nbsp;normalized<br>
+-&nbsp;device:&nbsp;&nbsp;&nbsp;PyTorch&nbsp;device&nbsp;to&nbsp;use</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="VLAD">class <strong>VLAD</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#VLAD">VLAD</a>(num_clusters:&nbsp;int,&nbsp;desc_dim:&nbsp;Union[int,&nbsp;NoneType]&nbsp;=&nbsp;None,&nbsp;intra_norm:&nbsp;bool&nbsp;=&nbsp;True,&nbsp;norm_descs:&nbsp;bool&nbsp;=&nbsp;True,&nbsp;dist_mode:&nbsp;str&nbsp;=&nbsp;'cosine',&nbsp;vlad_mode:&nbsp;str&nbsp;=&nbsp;'hard',&nbsp;soft_temp:&nbsp;float&nbsp;=&nbsp;1.0,&nbsp;cache_dir:&nbsp;Union[str,&nbsp;NoneType]&nbsp;=&nbsp;None)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+An&nbsp;implementation&nbsp;of&nbsp;<a href="#VLAD">VLAD</a>&nbsp;algorithm&nbsp;given&nbsp;database&nbsp;and&nbsp;query<br>
+descriptors.<br>
+&nbsp;<br>
+Constructor&nbsp;arguments:<br>
+-&nbsp;num_clusters:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number&nbsp;of&nbsp;cluster&nbsp;centers&nbsp;for&nbsp;<a href="#VLAD">VLAD</a><br>
+-&nbsp;desc_dim:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Descriptor&nbsp;dimension.&nbsp;If&nbsp;None,&nbsp;then&nbsp;it&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inferred&nbsp;when&nbsp;running&nbsp;`fit`&nbsp;method.<br>
+-&nbsp;intra_norm:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;intra&nbsp;normalization&nbsp;is&nbsp;applied<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;constructing&nbsp;<a href="#VLAD">VLAD</a><br>
+-&nbsp;norm_descs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;given&nbsp;descriptors&nbsp;are&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normalized&nbsp;before&nbsp;training&nbsp;and&nbsp;predicting&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#VLAD">VLAD</a>&nbsp;descriptors.&nbsp;Different&nbsp;from&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`intra_norm`&nbsp;argument.<br>
+-&nbsp;dist_mode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance&nbsp;mode&nbsp;for&nbsp;KMeans&nbsp;clustering&nbsp;for&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vocabulary&nbsp;(not&nbsp;residuals).&nbsp;Must&nbsp;be&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'euclidean',&nbsp;'cosine'}.<br>
+-&nbsp;vlad_mode:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mode&nbsp;for&nbsp;descriptor&nbsp;assignment&nbsp;(to&nbsp;cluster<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;centers)&nbsp;in&nbsp;<a href="#VLAD">VLAD</a>&nbsp;generation.&nbsp;Must&nbsp;be&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'soft',&nbsp;'hard'}<br>
+-&nbsp;soft_temp:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temperature&nbsp;for&nbsp;softmax&nbsp;(if&nbsp;'vald_mode'&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'soft')&nbsp;for&nbsp;assignment<br>
+-&nbsp;cache_dir:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Directory&nbsp;to&nbsp;cache&nbsp;the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vectors.&nbsp;If<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None,&nbsp;then&nbsp;no&nbsp;caching&nbsp;is&nbsp;done.&nbsp;If&nbsp;a&nbsp;str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;it&nbsp;is&nbsp;assumed&nbsp;as&nbsp;the&nbsp;folder&nbsp;path.&nbsp;Use<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;absolute&nbsp;paths.<br>
+&nbsp;<br>
+Notes:<br>
+-&nbsp;Arandjelovic,&nbsp;Relja,&nbsp;and&nbsp;Andrew&nbsp;Zisserman.&nbsp;"All&nbsp;about&nbsp;<a href="#VLAD">VLAD</a>."<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Proceedings&nbsp;of&nbsp;the&nbsp;IEEE&nbsp;conference&nbsp;on&nbsp;Computer&nbsp;Vision&nbsp;and&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Pattern&nbsp;Recognition.&nbsp;2013.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="VLAD-__init__"><strong>__init__</strong></a>(self, num_clusters: int, desc_dim: Union[int, NoneType] = None, intra_norm: bool = True, norm_descs: bool = True, dist_mode: str = 'cosine', vlad_mode: str = 'hard', soft_temp: float = 1.0, cache_dir: Union[str, NoneType] = None) -&gt; None</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="VLAD-can_use_cache_ids"><strong>can_use_cache_ids</strong></a>(self, cache_ids: Union[List[str], str, NoneType], only_residuals: bool = False) -&gt; bool</dt><dd><tt>Checks&nbsp;if&nbsp;the&nbsp;given&nbsp;cache&nbsp;IDs&nbsp;exist&nbsp;in&nbsp;the&nbsp;cache&nbsp;directory<br>
+and&nbsp;returns&nbsp;True&nbsp;if&nbsp;all&nbsp;of&nbsp;them&nbsp;exist.<br>
+The&nbsp;cache&nbsp;is&nbsp;stored&nbsp;in&nbsp;the&nbsp;following&nbsp;files:<br>
+-&nbsp;c_centers.pt:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cluster&nbsp;centers<br>
+-&nbsp;`cache_id`_r.pt:&nbsp;&nbsp;Residuals&nbsp;for&nbsp;<a href="#VLAD">VLAD</a><br>
+-&nbsp;`cache_id`_l.pt:&nbsp;&nbsp;Labels&nbsp;for&nbsp;<a href="#VLAD">VLAD</a>&nbsp;(hard&nbsp;assignment)<br>
+-&nbsp;`cache_id`_s.pt:&nbsp;&nbsp;Soft&nbsp;assignment&nbsp;for&nbsp;<a href="#VLAD">VLAD</a><br>
+&nbsp;<br>
+The&nbsp;function&nbsp;returns&nbsp;False&nbsp;if&nbsp;cache&nbsp;cannot&nbsp;be&nbsp;used&nbsp;or&nbsp;if<br>
+any&nbsp;of&nbsp;the&nbsp;cache&nbsp;IDs&nbsp;are&nbsp;not&nbsp;found.&nbsp;If&nbsp;all&nbsp;cache&nbsp;IDs&nbsp;are<br>
+found,&nbsp;then&nbsp;True&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;mainly&nbsp;for&nbsp;use&nbsp;outside&nbsp;the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;class.</tt></dd></dl>
+
+<dl><dt><a name="VLAD-can_use_cache_vlad"><strong>can_use_cache_vlad</strong></a>(self)</dt><dd><tt>Checks&nbsp;if&nbsp;the&nbsp;cache&nbsp;directory&nbsp;is&nbsp;a&nbsp;valid&nbsp;cache&nbsp;directory.<br>
+For&nbsp;it&nbsp;to&nbsp;be&nbsp;valid,&nbsp;it&nbsp;must&nbsp;exist&nbsp;and&nbsp;should&nbsp;at&nbsp;least<br>
+include&nbsp;the&nbsp;cluster&nbsp;centers&nbsp;file.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;True&nbsp;if&nbsp;the&nbsp;cache&nbsp;directory&nbsp;is&nbsp;valid<br>
+-&nbsp;False&nbsp;if&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;the&nbsp;cache&nbsp;directory&nbsp;doesn't&nbsp;exist<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;exists&nbsp;but&nbsp;doesn't&nbsp;contain&nbsp;the&nbsp;cluster&nbsp;centers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;no&nbsp;caching&nbsp;is&nbsp;set&nbsp;in&nbsp;constructor</tt></dd></dl>
+
+<dl><dt><a name="VLAD-fit"><strong>fit</strong></a>(self, train_descs: Union[numpy.ndarray, torch.Tensor, NoneType])</dt><dd><tt>Using&nbsp;the&nbsp;training&nbsp;descriptors,&nbsp;generate&nbsp;the&nbsp;cluster&nbsp;<br>
+centers&nbsp;(vocabulary).&nbsp;Function&nbsp;expects&nbsp;all&nbsp;descriptors&nbsp;in<br>
+a&nbsp;single&nbsp;list&nbsp;(see&nbsp;`fit_and_generate`&nbsp;for&nbsp;a&nbsp;batch&nbsp;of&nbsp;<br>
+images).<br>
+If&nbsp;the&nbsp;cache&nbsp;directory&nbsp;is&nbsp;valid,&nbsp;then&nbsp;retrieves&nbsp;cluster<br>
+centers&nbsp;from&nbsp;there&nbsp;(the&nbsp;`train_descs`&nbsp;are&nbsp;ignored).&nbsp;<br>
+Otherwise,&nbsp;stores&nbsp;the&nbsp;cluster&nbsp;centers&nbsp;in&nbsp;the&nbsp;cache&nbsp;<br>
+directory&nbsp;(if&nbsp;using&nbsp;caching).<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;train_descs:&nbsp;&nbsp;Training&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[num_train_desc,&nbsp;desc_dim].&nbsp;If&nbsp;None,&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;caching&nbsp;should&nbsp;be&nbsp;valid&nbsp;(else&nbsp;ValueError).</tt></dd></dl>
+
+<dl><dt><a name="VLAD-fit_and_generate"><strong>fit_and_generate</strong></a>(self, train_descs: Union[numpy.ndarray, torch.Tensor]) -&gt; torch.Tensor</dt><dd><tt>Given&nbsp;a&nbsp;batch&nbsp;of&nbsp;descriptors&nbsp;over&nbsp;images,&nbsp;`fit`&nbsp;the&nbsp;<a href="#VLAD">VLAD</a><br>
+and&nbsp;generate&nbsp;the&nbsp;global&nbsp;descriptors&nbsp;for&nbsp;the&nbsp;training<br>
+images.&nbsp;Use&nbsp;only&nbsp;when&nbsp;there&nbsp;are&nbsp;a&nbsp;fixed&nbsp;number&nbsp;of&nbsp;<br>
+descriptors&nbsp;in&nbsp;each&nbsp;image.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;train_descs:&nbsp;&nbsp;Training&nbsp;image&nbsp;descriptors&nbsp;of&nbsp;shape<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[num_imgs,&nbsp;num_descs,&nbsp;desc_dim].&nbsp;There&nbsp;are<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'num_imgs'&nbsp;images,&nbsp;each&nbsp;image&nbsp;has&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'num_descs'&nbsp;descriptors&nbsp;and&nbsp;each&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;descriptor&nbsp;is&nbsp;'desc_dim'&nbsp;dimensional.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;train_vlads:&nbsp;&nbsp;The&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vectors&nbsp;of&nbsp;all&nbsp;training&nbsp;images.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shape:&nbsp;[num_imgs,&nbsp;num_clusters*desc_dim]</tt></dd></dl>
+
+<dl><dt><a name="VLAD-generate"><strong>generate</strong></a>(self, query_descs: Union[numpy.ndarray, torch.Tensor], cache_id: Union[str, NoneType] = None) -&gt; torch.Tensor</dt><dd><tt>Given&nbsp;the&nbsp;query&nbsp;descriptors,&nbsp;generate&nbsp;a&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vector.&nbsp;Call<br>
+`fit`&nbsp;before&nbsp;using&nbsp;this&nbsp;method.&nbsp;Use&nbsp;this&nbsp;for&nbsp;only&nbsp;single<br>
+images&nbsp;and&nbsp;with&nbsp;descriptors&nbsp;stacked.&nbsp;Use&nbsp;function<br>
+`generate_multi`&nbsp;for&nbsp;multiple&nbsp;images.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;query_descs:&nbsp;&nbsp;Query&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[n_q,&nbsp;desc_dim]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;'n_q'&nbsp;is&nbsp;number&nbsp;of&nbsp;'desc_dim'&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dimensional&nbsp;descriptors&nbsp;in&nbsp;a&nbsp;query&nbsp;image.<br>
+-&nbsp;cache_id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;not&nbsp;None,&nbsp;then&nbsp;the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vector&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;using&nbsp;the&nbsp;residual&nbsp;and&nbsp;labels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;file.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;n_vlas:&nbsp;&nbsp;&nbsp;Normalized&nbsp;<a href="#VLAD">VLAD</a>:&nbsp;[num_clusters*desc_dim]</tt></dd></dl>
+
+<dl><dt><a name="VLAD-generate_multi"><strong>generate_multi</strong></a>(self, multi_query: Union[numpy.ndarray, torch.Tensor, list], cache_ids: Union[List[str], NoneType] = None) -&gt; Union[torch.Tensor, list]</dt><dd><tt>Given&nbsp;query&nbsp;descriptors&nbsp;from&nbsp;multiple&nbsp;images,&nbsp;generate<br>
+the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;for&nbsp;them.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;multi_query:&nbsp;&nbsp;Descriptors&nbsp;of&nbsp;shape&nbsp;[n_imgs,&nbsp;n_kpts,&nbsp;d]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There&nbsp;are&nbsp;'n_imgs'&nbsp;and&nbsp;each&nbsp;image&nbsp;has<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'n_kpts'&nbsp;keypoints,&nbsp;with&nbsp;'d'&nbsp;dimensional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;descriptor&nbsp;each.&nbsp;If&nbsp;a&nbsp;List&nbsp;(can&nbsp;then&nbsp;have<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;different&nbsp;number&nbsp;of&nbsp;keypoints&nbsp;in&nbsp;each&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image),&nbsp;then&nbsp;the&nbsp;result&nbsp;is&nbsp;also&nbsp;a&nbsp;list.<br>
+-&nbsp;cache_ids:&nbsp;&nbsp;&nbsp;&nbsp;Cache&nbsp;IDs&nbsp;for&nbsp;the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vectors.&nbsp;If&nbsp;None,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;no&nbsp;caching&nbsp;is&nbsp;done&nbsp;(stored&nbsp;or&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retrieved).&nbsp;If&nbsp;a&nbsp;list,&nbsp;then&nbsp;the&nbsp;length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should&nbsp;be&nbsp;'n_imgs'&nbsp;(one&nbsp;per&nbsp;image).<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;multi_res:&nbsp;&nbsp;&nbsp;&nbsp;<a href="#VLAD">VLAD</a>&nbsp;descriptors&nbsp;for&nbsp;the&nbsp;queries</tt></dd></dl>
+
+<dl><dt><a name="VLAD-generate_multi_res_vec"><strong>generate_multi_res_vec</strong></a>(self, multi_query: Union[numpy.ndarray, torch.Tensor, list], cache_ids: Union[List[str], NoneType] = None) -&gt; Union[torch.Tensor, list]</dt><dd><tt>Given&nbsp;query&nbsp;descriptors&nbsp;from&nbsp;multiple&nbsp;images,&nbsp;generate<br>
+the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;for&nbsp;them.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;multi_query:&nbsp;&nbsp;Descriptors&nbsp;of&nbsp;shape&nbsp;[n_imgs,&nbsp;n_kpts,&nbsp;d]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;There&nbsp;are&nbsp;'n_imgs'&nbsp;and&nbsp;each&nbsp;image&nbsp;has<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'n_kpts'&nbsp;keypoints,&nbsp;with&nbsp;'d'&nbsp;dimensional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;descriptor&nbsp;each.&nbsp;If&nbsp;a&nbsp;List&nbsp;(can&nbsp;then&nbsp;have<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;different&nbsp;number&nbsp;of&nbsp;keypoints&nbsp;in&nbsp;each&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image),&nbsp;then&nbsp;the&nbsp;result&nbsp;is&nbsp;also&nbsp;a&nbsp;list.<br>
+-&nbsp;cache_ids:&nbsp;&nbsp;&nbsp;&nbsp;Cache&nbsp;IDs&nbsp;for&nbsp;the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vectors.&nbsp;If&nbsp;None,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;no&nbsp;caching&nbsp;is&nbsp;done&nbsp;(stored&nbsp;or&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retrieved).&nbsp;If&nbsp;a&nbsp;list,&nbsp;then&nbsp;the&nbsp;length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should&nbsp;be&nbsp;'n_imgs'&nbsp;(one&nbsp;per&nbsp;image).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns:<br>
+-&nbsp;multi_res:&nbsp;&nbsp;&nbsp;&nbsp;<a href="#VLAD">VLAD</a>&nbsp;descriptors&nbsp;for&nbsp;the&nbsp;queries</tt></dd></dl>
+
+<dl><dt><a name="VLAD-generate_res_vec"><strong>generate_res_vec</strong></a>(self, query_descs: Union[numpy.ndarray, torch.Tensor], cache_id: Union[str, NoneType] = None) -&gt; torch.Tensor</dt><dd><tt>Given&nbsp;the&nbsp;query&nbsp;descriptors,&nbsp;generate&nbsp;a&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vector.&nbsp;Call<br>
+`fit`&nbsp;before&nbsp;using&nbsp;this&nbsp;method.&nbsp;Use&nbsp;this&nbsp;for&nbsp;only&nbsp;single<br>
+images&nbsp;and&nbsp;with&nbsp;descriptors&nbsp;stacked.&nbsp;Use&nbsp;function<br>
+`generate_multi`&nbsp;for&nbsp;multiple&nbsp;images.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;query_descs:&nbsp;&nbsp;Query&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[n_q,&nbsp;desc_dim]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;'n_q'&nbsp;is&nbsp;number&nbsp;of&nbsp;'desc_dim'&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dimensional&nbsp;descriptors&nbsp;in&nbsp;a&nbsp;query&nbsp;image.<br>
+-&nbsp;cache_id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;not&nbsp;None,&nbsp;then&nbsp;the&nbsp;<a href="#VLAD">VLAD</a>&nbsp;vector&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;using&nbsp;the&nbsp;residual&nbsp;and&nbsp;labels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;file.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;residuals:&nbsp;&nbsp;&nbsp;&nbsp;Residual&nbsp;vector:&nbsp;shape&nbsp;[n_q,&nbsp;n_c,&nbsp;d]</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-concat_desc_dists_clusters"><strong>concat_desc_dists_clusters</strong></a>(cluster_centers: torch.Tensor, descs: torch.Tensor) -&gt; torch.Tensor</dt><dd><tt>Do&nbsp;concatenation&nbsp;of&nbsp;descriptor&nbsp;distances&nbsp;from&nbsp;the&nbsp;cluster&nbsp;<br>
+centers.&nbsp;Performs&nbsp;the&nbsp;following&nbsp;steps:<br>
+1.&nbsp;Calculate&nbsp;the&nbsp;distance&nbsp;vector&nbsp;&nbsp;of&nbsp;each&nbsp;descriptor&nbsp;from&nbsp;each<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cluster&nbsp;center.&nbsp;<br>
+2.&nbsp;Normalize&nbsp;this&nbsp;distance&nbsp;vector&nbsp;(for&nbsp;each&nbsp;descriptor's&nbsp;each<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cluster&nbsp;center&nbsp;measurement)&nbsp;like&nbsp;intra-normalization.<br>
+3.&nbsp;Concatenate&nbsp;the&nbsp;cluster&nbsp;center&nbsp;distance&nbsp;vectors&nbsp;across&nbsp;all<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cluster&nbsp;centers.<br>
+4.&nbsp;Normalize&nbsp;this&nbsp;concatenated&nbsp;vector&nbsp;(per&nbsp;descriptor).<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;cluster_centers:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(k,&nbsp;d)&nbsp;shape&nbsp;cluster&nbsp;centers<br>
+-&nbsp;descs:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(n,&nbsp;d)&nbsp;shape&nbsp;descriptors<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;ncat_vects:&nbsp;&nbsp;&nbsp;(n,&nbsp;(k*d))&nbsp;shape&nbsp;pooled&nbsp;descriptors</tt></dd></dl>
+ <dl><dt><a name="-get_1d_sincos_pos_embed_from_grid"><strong>get_1d_sincos_pos_embed_from_grid</strong></a>(embed_dim, pos)</dt><dd><tt>embed_dim:&nbsp;output&nbsp;dimension&nbsp;for&nbsp;each&nbsp;position<br>
+pos:&nbsp;a&nbsp;list&nbsp;of&nbsp;positions&nbsp;to&nbsp;be&nbsp;encoded:&nbsp;size&nbsp;(M,)<br>
+out:&nbsp;(M,&nbsp;D)</tt></dd></dl>
+ <dl><dt><a name="-get_2d_sincos_pos_embed"><strong>get_2d_sincos_pos_embed</strong></a>(embed_dim, grid_size, cls_token=False)</dt><dd><tt>grid_size:&nbsp;int&nbsp;of&nbsp;the&nbsp;grid&nbsp;height&nbsp;and&nbsp;width<br>
+return:<br>
+pos_embed:&nbsp;[grid_size*grid_size,&nbsp;embed_dim]&nbsp;or&nbsp;[1+grid_size*grid_size,&nbsp;embed_dim]&nbsp;(w/&nbsp;or&nbsp;w/o&nbsp;cls_token)</tt></dd></dl>
+ <dl><dt><a name="-get_2d_sincos_pos_embed_from_grid"><strong>get_2d_sincos_pos_embed_from_grid</strong></a>(embed_dim, grid)</dt></dl>
+ <dl><dt><a name="-get_top_k_recall"><strong>get_top_k_recall</strong></a>(top_k: List[int], db: torch.Tensor, qu: torch.Tensor, gt_pos: numpy.ndarray, method: str = 'cosine', norm_descs: bool = True, use_gpu: bool = False, use_percentage: bool = True, sub_sample_db: int = 1, sub_sample_qu: int = 1) -&gt; Tuple[numpy.ndarray, numpy.ndarray, dict]</dt><dd><tt>Given&nbsp;a&nbsp;database&nbsp;and&nbsp;query&nbsp;(or&nbsp;queries),&nbsp;get&nbsp;the&nbsp;top&nbsp;'k'<br>
+retrievals&nbsp;(closest&nbsp;in&nbsp;database&nbsp;for&nbsp;each&nbsp;query)&nbsp;as&nbsp;indices&nbsp;(in<br>
+database),&nbsp;distances,&nbsp;and&nbsp;recalls.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;top_k:&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;'k'&nbsp;values&nbsp;for&nbsp;recall&nbsp;calculation.&nbsp;Eg:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`list(range(1,&nbsp;11))`.<br>
+-&nbsp;db:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Database&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[n_db,&nbsp;d_dim].<br>
+-&nbsp;qu:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Query&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[n_qu,&nbsp;d_dim].&nbsp;If&nbsp;only<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;one&nbsp;query&nbsp;(n_qu&nbsp;=&nbsp;1),&nbsp;then&nbsp;shape&nbsp;[d_dim].<br>
+-&nbsp;gt_pos:&nbsp;&nbsp;&nbsp;Ground&nbsp;truth&nbsp;for&nbsp;retrievals.&nbsp;Should&nbsp;be&nbsp;<a href="builtins.html#object">object</a>&nbsp;type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;gt_pos[i]&nbsp;having&nbsp;true&nbsp;database&nbsp;items&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(indices)&nbsp;for&nbsp;the&nbsp;query&nbsp;'i'&nbsp;(in&nbsp;`qu`).<br>
+-&nbsp;method:&nbsp;&nbsp;&nbsp;Method&nbsp;for&nbsp;faiss&nbsp;search.&nbsp;In&nbsp;{'cosine',&nbsp;'l2'}.<br>
+-&nbsp;norm_descs:&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;descriptors&nbsp;are&nbsp;normalized&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function.<br>
+-&nbsp;use_gpu:&nbsp;&nbsp;True&nbsp;if&nbsp;indexing&nbsp;(search)&nbsp;should&nbsp;be&nbsp;on&nbsp;GPU.<br>
+-&nbsp;use_percentage:&nbsp;&nbsp;&nbsp;If&nbsp;True,&nbsp;the&nbsp;recalls&nbsp;are&nbsp;returned&nbsp;as&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;percentage&nbsp;(of&nbsp;queries&nbsp;resolved).<br>
+-&nbsp;sub_sample_db:&nbsp;&nbsp;&nbsp;&nbsp;Sub-sample&nbsp;database&nbsp;samples&nbsp;from&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ground&nbsp;truth&nbsp;'gt_pos'<br>
+-&nbsp;sub_sample_qu:&nbsp;&nbsp;&nbsp;&nbsp;Sub-sample&nbsp;query&nbsp;samples&nbsp;from&nbsp;the&nbsp;ground<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;truth&nbsp;'gt_pos'<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;distances:&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;distances&nbsp;of&nbsp;queries&nbsp;to&nbsp;retrievals.&nbsp;The<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape&nbsp;is&nbsp;[n_qu,&nbsp;max(top_k)].&nbsp;It&nbsp;is&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;distance&nbsp;(as&nbsp;specified&nbsp;in&nbsp;`method`)&nbsp;with&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;database&nbsp;item&nbsp;retrieved&nbsp;(index&nbsp;in&nbsp;`indices`).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorted&nbsp;by&nbsp;distance.<br>
+-&nbsp;indices:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Indices&nbsp;of&nbsp;the&nbsp;database&nbsp;items&nbsp;retrieved.&nbsp;The<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape&nbsp;is&nbsp;[n_qu,&nbsp;max(top_k)].&nbsp;Sorted&nbsp;by&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;distance.<br>
+-&nbsp;recalls:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;dictionary&nbsp;with&nbsp;keys&nbsp;as&nbsp;top_k&nbsp;integers,&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values&nbsp;are&nbsp;the&nbsp;recall&nbsp;(number&nbsp;or&nbsp;percentage)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;correct&nbsp;retrievals&nbsp;for&nbsp;queries.</tt></dd></dl>
+ <dl><dt><a name="-interpolate_pos_embed"><strong>interpolate_pos_embed</strong></a>(model, checkpoint_model)</dt><dd><tt>#&nbsp;--------------------------------------------------------<br>
+#&nbsp;Interpolate&nbsp;position&nbsp;embeddings&nbsp;for&nbsp;high-resolution<br>
+#&nbsp;References:<br>
+#&nbsp;DeiT:&nbsp;https://github.com/facebookresearch/deit<br>
+#&nbsp;--------------------------------------------------------</tt></dd></dl>
+ <dl><dt><a name="-pad_img"><strong>pad_img</strong></a>(img: numpy.ndarray, padding: int, color: tuple = (0, 0, 0)) -&gt; numpy.ndarray</dt><dd><tt>Pad&nbsp;an&nbsp;image&nbsp;with&nbsp;'padding'&nbsp;along&nbsp;each&nbsp;side&nbsp;(height&nbsp;and&nbsp;width)<br>
+and&nbsp;fill&nbsp;the&nbsp;padding&nbsp;with&nbsp;'color'.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;img:&nbsp;&nbsp;Image&nbsp;of&nbsp;shape&nbsp;[H,&nbsp;W,&nbsp;C=3]&nbsp;with&nbsp;channels&nbsp;as&nbsp;RGB&nbsp;(same<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;the&nbsp;'color'&nbsp;channels)<br>
+-&nbsp;padding:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padding&nbsp;'P'&nbsp;(int)&nbsp;for&nbsp;each&nbsp;dimension&nbsp;(applied&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on&nbsp;both&nbsp;ends&nbsp;of&nbsp;axis)<br>
+-&nbsp;color:&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;RGB&nbsp;color&nbsp;of&nbsp;the&nbsp;padding<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;_img:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image&nbsp;of&nbsp;shape&nbsp;[H+2P,&nbsp;W+2P,&nbsp;C=3]</tt></dd></dl>
+ <dl><dt><a name="-reduce_pca"><strong>reduce_pca</strong></a>(train_descs: numpy.ndarray, test_descs: numpy.ndarray, lower_dim: int, low_factor: float = 0.0, fallback: int = 256, svd_solver: str = 'full') -&gt; Tuple[numpy.ndarray, numpy.ndarray]</dt><dd><tt>Reduce&nbsp;the&nbsp;dimensionality&nbsp;of&nbsp;the&nbsp;training&nbsp;and&nbsp;test&nbsp;dataset<br>
+using&nbsp;Principal&nbsp;Component&nbsp;Analysis&nbsp;(implementation&nbsp;from&nbsp;<br>
+sklearn.decomposition).&nbsp;The&nbsp;test&nbsp;set&nbsp;is&nbsp;reduced&nbsp;by&nbsp;using&nbsp;the<br>
+parameters&nbsp;(basis&nbsp;and&nbsp;mean)&nbsp;from&nbsp;the&nbsp;training&nbsp;set.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;train_descs:&nbsp;&nbsp;Training&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[n_tr,&nbsp;n_o]<br>
+-&nbsp;test_descs:&nbsp;&nbsp;&nbsp;Test&nbsp;set&nbsp;descriptors&nbsp;of&nbsp;shape&nbsp;[n_ts,&nbsp;n_o]<br>
+-&nbsp;lower_dim:&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;number&nbsp;of&nbsp;components&nbsp;in&nbsp;the&nbsp;PCA&nbsp;(after<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dimensionality&nbsp;reduction),&nbsp;`l_dim`.<br>
+-&nbsp;low_factor:&nbsp;&nbsp;&nbsp;The&nbsp;percentage&nbsp;of&nbsp;(eigen)basis&nbsp;vectors&nbsp;to&nbsp;take<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;the&nbsp;lower&nbsp;end&nbsp;of&nbsp;the&nbsp;eigenvectors&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;having&nbsp;least&nbsp;eigenvalues).&nbsp;For&nbsp;example,&nbsp;if&nbsp;30%<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;`lower_dim`&nbsp;is&nbsp;100,&nbsp;then&nbsp;60&nbsp;basis&nbsp;vectors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;taken&nbsp;from&nbsp;top&nbsp;eigenvalues&nbsp;and&nbsp;30&nbsp;basis<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vectors&nbsp;are&nbsp;taken&nbsp;from&nbsp;the&nbsp;lowest&nbsp;eigenvalues.<br>
+-&nbsp;fallback:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;`n_tr&nbsp;&lt;&nbsp;l_dim`&nbsp;(lesser&nbsp;samples&nbsp;than&nbsp;final<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;components)&nbsp;for&nbsp;the&nbsp;training&nbsp;set&nbsp;and&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`low_factor`&nbsp;is&nbsp;non-zero,&nbsp;then&nbsp;the&nbsp;training<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;test&nbsp;samples&nbsp;are&nbsp;first&nbsp;directly&nbsp;projected<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;this&nbsp;lower&nbsp;dimension.&nbsp;They&nbsp;are&nbsp;then&nbsp;further<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reduced&nbsp;using&nbsp;`lower_dim`.&nbsp;This&nbsp;must&nbsp;be&nbsp;higher<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;than&nbsp;`lower_dim`&nbsp;value&nbsp;(for&nbsp;it&nbsp;to&nbsp;make&nbsp;sense).<br>
+-&nbsp;svd_solver:&nbsp;&nbsp;&nbsp;The&nbsp;solver&nbsp;for&nbsp;scipy&nbsp;PCA&nbsp;module.<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;out_train_descs:&nbsp;&nbsp;Training&nbsp;descriptors:&nbsp;[n_tr,&nbsp;l_dim]<br>
+-&nbsp;out_test_descs:&nbsp;&nbsp;&nbsp;Test&nbsp;descriptors:&nbsp;[n_ts,&nbsp;l_dim]</tt></dd></dl>
+ <dl><dt><a name="-seed_everything"><strong>seed_everything</strong></a>(seed=42)</dt><dd><tt>Set&nbsp;the&nbsp;`seed`&nbsp;value&nbsp;for&nbsp;torch&nbsp;and&nbsp;numpy&nbsp;seeds.&nbsp;Also&nbsp;turns&nbsp;on<br>
+deterministic&nbsp;execution&nbsp;for&nbsp;cudnn.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;seed:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;hashable&nbsp;seed&nbsp;value</tt></dd></dl>
+ <dl><dt><a name="-to_np"><strong>to_np</strong></a>(x, ret_type=&lt;class 'float'&gt;) -&gt; numpy.ndarray</dt><dd><tt>Converts&nbsp;'x'&nbsp;to&nbsp;numpy&nbsp;<a href="builtins.html#object">object</a>&nbsp;of&nbsp;`dtype`&nbsp;as&nbsp;'ret_type'<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;x:&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;<a href="builtins.html#object">object</a><br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;x_np:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;numpy&nbsp;array&nbsp;of&nbsp;dtype&nbsp;`ret_type`</tt></dd></dl>
+ <dl><dt><a name="-to_pil_list"><strong>to_pil_list</strong></a>(x) -&gt; List[PIL.Image.Image]</dt><dd><tt>Converts&nbsp;the&nbsp;input&nbsp;'x'&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;a&nbsp;list&nbsp;of&nbsp;PIL&nbsp;Images&nbsp;<br>
+(assuming&nbsp;that&nbsp;'x'&nbsp;is&nbsp;really&nbsp;an&nbsp;image&nbsp;or&nbsp;a&nbsp;batch&nbsp;of&nbsp;images).&nbsp;<br>
+You&nbsp;can&nbsp;pass&nbsp;a&nbsp;batch&nbsp;of&nbsp;shape&nbsp;[B,&nbsp;C,&nbsp;H,&nbsp;W]&nbsp;or&nbsp;shape&nbsp;<br>
+[B,&nbsp;H,&nbsp;W,&nbsp;C]&nbsp;and&nbsp;it&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;PIL&nbsp;Images.&nbsp;If&nbsp;'x'&nbsp;is&nbsp;of<br>
+shape&nbsp;[H,&nbsp;W,&nbsp;C]&nbsp;or&nbsp;[C,&nbsp;H,&nbsp;W],&nbsp;then&nbsp;the&nbsp;length&nbsp;of&nbsp;list&nbsp;is&nbsp;1.<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;x:&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;single&nbsp;or&nbsp;a&nbsp;batch&nbsp;of&nbsp;images&nbsp;(channels&nbsp;first&nbsp;or&nbsp;last)<br>
+&nbsp;<br>
+Returns:<br>
+-&nbsp;imgs_pil:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;list&nbsp;of&nbsp;PIL&nbsp;Images&nbsp;(length&nbsp;is&nbsp;the&nbsp;number&nbsp;of&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;images&nbsp;in&nbsp;'x')</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>List</strong> = typing.List<br>
+<strong>Literal</strong> = typing.Literal<br>
+<strong>Tuple</strong> = typing.Tuple<br>
+<strong>Union</strong> = typing.Union<br>
+<strong>__warningregistry__</strong> = {'version': 31}</td></tr></table>
+</body></html>

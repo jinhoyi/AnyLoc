@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module configs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>configs</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/mnt/gsyi/project/salient_detection/AnyLoc/configs.py">/mnt/gsyi/project/salient_detection/AnyLoc/configs.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Global&nbsp;configurations</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="torch.html">torch</a><br>
+</td><td width="25%" valign=top><a href="tyro.html">tyro</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="configs.html#BaseDatasetArgs">BaseDatasetArgs</a>
+</font></dt><dt><font face="helvetica, arial"><a href="configs.html#ProgArgs">ProgArgs</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BaseDatasetArgs">class <strong>BaseDatasetArgs</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#BaseDatasetArgs">BaseDatasetArgs</a>(resize:&nbsp;List[int]&nbsp;=&nbsp;&amp;lt;factory&amp;gt;,&nbsp;test_method:&nbsp;Literal['hard_resize',&nbsp;'single_query',&nbsp;'central_crop',&nbsp;'five_crops',&nbsp;'nearest_crop',&nbsp;'maj_voting']&nbsp;=&nbsp;'hard_resize',&nbsp;val_positive_dist_threshold:&nbsp;int&nbsp;=&nbsp;25)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+Dataset&nbsp;arguments&nbsp;for&nbsp;BaseDataset&nbsp;in&nbsp;`datasets_ws.py`<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="BaseDatasetArgs-__delattr__"><strong>__delattr__</strong></a>(self, name)</dt></dl>
+
+<dl><dt><a name="BaseDatasetArgs-__eq__"><strong>__eq__</strong></a>(self, other)</dt></dl>
+
+<dl><dt><a name="BaseDatasetArgs-__hash__"><strong>__hash__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="BaseDatasetArgs-__init__"><strong>__init__</strong></a>(self, resize: List[int] = &lt;factory&gt;, test_method: Literal['hard_resize', 'single_query', 'central_crop', 'five_crops', 'nearest_crop', 'maj_voting'] = 'hard_resize', val_positive_dist_threshold: int = 25) -&gt; None</dt></dl>
+
+<dl><dt><a name="BaseDatasetArgs-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="BaseDatasetArgs-__setattr__"><strong>__setattr__</strong></a>(self, name, value)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'resize': typing.List[int], 'test_method': typing.Literal['hard_resize', 'single_query', 'c...rop', 'five_crops', 'nearest_crop', 'maj_voting'], 'val_positive_dist_threshold': &lt;class 'int'&gt;}</dl>
+
+<dl><dt><strong>__dataclass_fields__</strong> = {'resize': Field(name='resize',type=typing.List[int],defaul...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'test_method': Field(name='test_method',type=typing.Literal['ha...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'val_positive_dist_threshold': Field(name='val_positive_dist_threshold',type=&lt;c...rue,metadata=mappingproxy({}),_field_type=_FIELD)}</dl>
+
+<dl><dt><strong>__dataclass_params__</strong> = _DataclassParams(init=True,repr=True,eq=True,order=False,unsafe_hash=False,frozen=True)</dl>
+
+<dl><dt><strong>test_method</strong> = 'hard_resize'</dl>
+
+<dl><dt><strong>val_positive_dist_threshold</strong> = 25</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ProgArgs">class <strong>ProgArgs</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#ProgArgs">ProgArgs</a>(cache_dir:&nbsp;pathlib.Path&nbsp;=&nbsp;'/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache',&nbsp;data_vg_dir:&nbsp;pathlib.Path&nbsp;=&nbsp;'/ocean/projects/cis220039p/shared/datasets/vpr/datasets_vg',&nbsp;vg_dataset_name:&nbsp;Literal['st_lucia',&nbsp;'pitts30k',&nbsp;'17places',&nbsp;'nordland',&nbsp;'tokyo247',&nbsp;'baidu_datasets',&nbsp;'Oxford',&nbsp;'gardens',&nbsp;'hawkins',&nbsp;'hawkins_long_corridor',&nbsp;'global',&nbsp;'VPAir',&nbsp;'Tartan_GNSS_rotated',&nbsp;'Tartan_GNSS_notrotated',&nbsp;'Tartan_GNSS_test_notrotated',&nbsp;'Tartan_GNSS_test_rotated',&nbsp;'laurel_caverns',&nbsp;'eiffel']&nbsp;=&nbsp;'hawkins_long_corridor',&nbsp;use_wandb:&nbsp;bool&nbsp;=&nbsp;False,&nbsp;wandb_proj:&nbsp;str&nbsp;=&nbsp;'Baselines',&nbsp;wandb_entity:&nbsp;str&nbsp;=&nbsp;'vpr-vl',&nbsp;wandb_group:&nbsp;str&nbsp;=&nbsp;'Oxford',&nbsp;wandb_run_name:&nbsp;str&nbsp;=&nbsp;'Oxford/CLIP_TopK',&nbsp;wandb_save_qual:&nbsp;bool&nbsp;=&nbsp;False)&nbsp;-&amp;gt;&nbsp;None<br>
+&nbsp;<br>
+Core&nbsp;program&nbsp;arguments<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ProgArgs-__delattr__"><strong>__delattr__</strong></a>(self, name)</dt></dl>
+
+<dl><dt><a name="ProgArgs-__eq__"><strong>__eq__</strong></a>(self, other)</dt></dl>
+
+<dl><dt><a name="ProgArgs-__hash__"><strong>__hash__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ProgArgs-__init__"><strong>__init__</strong></a>(self, cache_dir: pathlib.Path = '/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache', data_vg_dir: pathlib.Path = '/ocean/projects/cis220039p/shared/datasets/vpr/datasets_vg', vg_dataset_name: Literal['st_lucia', 'pitts30k', '17places', 'nordland', 'tokyo247', 'baidu_datasets', 'Oxford', 'gardens', 'hawkins', 'hawkins_long_corridor', 'global', 'VPAir', 'Tartan_GNSS_rotated', 'Tartan_GNSS_notrotated', 'Tartan_GNSS_test_notrotated', 'Tartan_GNSS_test_rotated', 'laurel_caverns', 'eiffel'] = 'hawkins_long_corridor', use_wandb: bool = False, wandb_proj: str = 'Baselines', wandb_entity: str = 'vpr-vl', wandb_group: str = 'Oxford', wandb_run_name: str = 'Oxford/CLIP_TopK', wandb_save_qual: bool = False) -&gt; None</dt></dl>
+
+<dl><dt><a name="ProgArgs-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ProgArgs-__setattr__"><strong>__setattr__</strong></a>(self, name, value)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__annotations__</strong> = {'cache_dir': &lt;class 'pathlib.Path'&gt;, 'data_vg_dir': &lt;class 'pathlib.Path'&gt;, 'use_wandb': &lt;class 'bool'&gt;, 'vg_dataset_name': typing.Literal['st_lucia', 'pitts30k', '17places...n_GNSS_test_rotated', 'laurel_caverns', 'eiffel'], 'wandb_entity': &lt;class 'str'&gt;, 'wandb_group': &lt;class 'str'&gt;, 'wandb_proj': &lt;class 'str'&gt;, 'wandb_run_name': &lt;class 'str'&gt;, 'wandb_save_qual': &lt;class 'bool'&gt;}</dl>
+
+<dl><dt><strong>__dataclass_fields__</strong> = {'cache_dir': Field(name='cache_dir',type=&lt;class 'pathlib.Path...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'data_vg_dir': Field(name='data_vg_dir',type=&lt;class 'pathlib.Pa...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'use_wandb': Field(name='use_wandb',type=&lt;class 'bool'&gt;,defau...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'vg_dataset_name': Field(name='vg_dataset_name',type=typing.Literal...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'wandb_entity': Field(name='wandb_entity',type=&lt;class 'str'&gt;,def...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'wandb_group': Field(name='wandb_group',type=&lt;class 'str'&gt;,defa...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'wandb_proj': Field(name='wandb_proj',type=&lt;class 'str'&gt;,defau...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'wandb_run_name': Field(name='wandb_run_name',type=&lt;class 'str'&gt;,d...rue,metadata=mappingproxy({}),_field_type=_FIELD), 'wandb_save_qual': Field(name='wandb_save_qual',type=&lt;class 'bool'&gt;...rue,metadata=mappingproxy({}),_field_type=_FIELD)}</dl>
+
+<dl><dt><strong>__dataclass_params__</strong> = _DataclassParams(init=True,repr=True,eq=True,order=False,unsafe_hash=False,frozen=True)</dl>
+
+<dl><dt><strong>cache_dir</strong> = '/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache'</dl>
+
+<dl><dt><strong>data_vg_dir</strong> = '/ocean/projects/cis220039p/shared/datasets/vpr/datasets_vg'</dl>
+
+<dl><dt><strong>use_wandb</strong> = False</dl>
+
+<dl><dt><strong>vg_dataset_name</strong> = 'hawkins_long_corridor'</dl>
+
+<dl><dt><strong>wandb_entity</strong> = 'vpr-vl'</dl>
+
+<dl><dt><strong>wandb_group</strong> = 'Oxford'</dl>
+
+<dl><dt><strong>wandb_proj</strong> = 'Baselines'</dl>
+
+<dl><dt><strong>wandb_run_name</strong> = 'Oxford/CLIP_TopK'</dl>
+
+<dl><dt><strong>wandb_save_qual</strong> = False</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-try_tyro"><strong>try_tyro</strong></a>(x, allow_safe_quit=False)</dt><dd><tt>Wrap&nbsp;'x'&nbsp;dataclass&nbsp;around&nbsp;tyro.cli&nbsp;(if&nbsp;it&nbsp;works)<br>
+&nbsp;<br>
+Parameters:<br>
+-&nbsp;x:&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;class&nbsp;wrapped&nbsp;in&nbsp;`dataclasses.dataclass`&nbsp;for&nbsp;tyro<br>
+-&nbsp;allow_safe_quit:&nbsp;&nbsp;If&nbsp;exit&nbsp;code&nbsp;is&nbsp;0&nbsp;(maybe&nbsp;`-h`),&nbsp;then&nbsp;exit</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>List</strong> = typing.List<br>
+<strong>Literal</strong> = typing.Literal<br>
+<strong>Union</strong> = typing.Union<br>
+<strong>base_dataset_args</strong> = BaseDatasetArgs(resize=[480, 640], test_method='hard_resize', val_positive_dist_threshold=25)<br>
+<strong>caching_directory</strong> = '/ocean/projects/cis220039p/jkarhade/data/vlvpr_cache'<br>
+<strong>dataset_name</strong> = 'hawkins_long_corridor'<br>
+<strong>datasets_dir</strong> = '/ocean/projects/cis220039p/shared/datasets/vpr/datasets_vg'<br>
+<strong>device</strong> = device(type='cuda')<br>
+<strong>dir_name</strong> = '/mnt/gsyi/project/salient_detection/AnyLoc'<br>
+<strong>lib_path</strong> = '/mnt/gsyi/project/salient_detection/AnyLoc'<br>
+<strong>prog_args</strong> = ProgArgs(cache_dir='/ocean/projects/cis220039p/j...n_name='Oxford/CLIP_TopK', wandb_save_qual=False)<br>
+<strong>user_name</strong> = 'gsyi'</td></tr></table>
+</body></html>
